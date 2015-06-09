@@ -169,6 +169,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="insertarCliente.aspx" />
+    <Content Include="Content\login.png" />
     <Content Include="ModuloAdministrativo.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -177,6 +178,7 @@
     <Content Include="Account\Web.config" />
     <None Include="Properties\PublishProfiles\ProyectoFinal1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="RealizarCompra.aspx" />
     <Content Include="Registro_Producto.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -374,6 +376,13 @@
       <DependentUpon>ModuloAdministrativo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealizarCompra.aspx.cs">
+      <DependentUpon>RealizarCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RealizarCompra.aspx.designer.cs">
+      <DependentUpon>RealizarCompra.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Registro_Producto.aspx.cs">
       <DependentUpon>Registro_Producto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

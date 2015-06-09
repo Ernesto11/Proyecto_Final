@@ -138,8 +138,17 @@ namespace Proyecto_Final
                     command1.Parameters.AddWithValue("@ID_Planta", id_producto);
                     command1.Parameters.AddWithValue("@CANTIDAD", cantidad.Text);
                     int res1 = command1.ExecuteNonQuery();
+                    conexion2.Close();
                     if (res1 == -1)
                     {
+                        nombre.Text = "";
+                        codigo.Text = "";
+                        costo.Text = "";
+                        precio.Text = "";
+                        Descripcion.Text = "";
+                        envio.Text = "";
+                        cantidad.Text = "";
+
                         mensajeError("El producto se ingreso correctamenta");
                     }
                 }
