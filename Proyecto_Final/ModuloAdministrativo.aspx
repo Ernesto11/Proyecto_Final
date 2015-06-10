@@ -70,7 +70,7 @@
                 <td translate="yes">
                     <asp:TextBox ID="fecha" runat="server" ReadOnly="True"></asp:TextBox>
                     &nbsp;&nbsp;
-                    <asp:ImageButton ID="ImageButton1" runat="server" Height="36px" ImageUrl="~/Content/calendario_icono.png" Width="35px" OnClick="ImageButton1_Click1" />
+                    <asp:ImageButton ID="ImageButton1" runat="server" Height="36px" ImageUrl="~/Content/calendario_icono.png" Width="35px" OnClick="ImageButton1_Click1" ToolTip="Click para seleccionar una fecha" />
 
                     <br />
 

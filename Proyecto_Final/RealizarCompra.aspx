@@ -25,10 +25,10 @@
         }
         .auto-style6 {
             position:absolute;
-            width: 47%;
-            height: 433px;
+            width: 49%;
+            height: 514px;
             z-index:11;
-            left: 611px;
+            left: 614px;
             top: 74px;
         }
         .auto-style7 {
@@ -41,6 +41,14 @@
             width: 179px;
         }
         .auto-style10 {
+        }
+        .auto-style11 {
+        }
+        .auto-style12 {
+            height: 12px;
+        }
+        .auto-style13 {
+            width: 146px;
         }
     </style>
 </head>
@@ -62,7 +70,7 @@
                 <td class="auto-style2">Seleccione el nombre de usuario del cliente:</td>
                 <td>
                     <asp:DropDownList ID="nombreUsuario" runat="server" DataSourceID="SqlDataSource1" DataTextField="NOMBREUSUARIO" DataValueField="NOMBREUSUARIO" ToolTip="Seleccione el nombre de usuario" Height="16px" Width="176px" AutoPostBack="True" OnSelectedIndexChanged="nombreUsuario_SelectedIndexChanged">
-                        <asp:ListItem>---------Seleccione un Nombre de Usuario--------</asp:ListItem>
+                    <asp:ListItem>(----Seleccione un nombre de usuario----)</asp:ListItem>
                     </asp:DropDownList>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="SELECT NOMBREUSUARIO FROM CASO2.CLIENTE"></asp:SqlDataSource>
                 </td>
@@ -71,7 +79,7 @@
                 <td class="auto-style2">Seleccione la cuenta relacionada con el cliente:</td>
                 <td>
                     <asp:DropDownList ID="cuenta" runat="server" ToolTip="Seleccione una cuenta relaciond con el nombre de usuario para realizar la compra" AutoPostBack="True" OnSelectedIndexChanged="cuenta_SelectedIndexChanged">
-                        <asp:ListItem>----Seleccione una cuenta----</asp:ListItem>
+                        <asp:ListItem>(----Seleccione una cuenta----)</asp:ListItem>
                     </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
                     <asp:ImageButton ID="ImageButton1" runat="server" ToolTip="Click para crear una nueva cuenta" Height="38px" ImageUrl="~/Content/login.png" Width="36px" OnClick="ImageButton1_Click" />
@@ -80,7 +88,7 @@
         </table>
         <table runat="server" visible="false" class="auto-style3" id="insertarCuenta">
             <tr>
-                <td class="auto-style4" colspan="2">Ingrese los siguientes datos necesarios para crear la cuenta:</td>
+                <td class="auto-style4" colspan="2">Ingrese los siguientes datos necesarios para crear una nueva cuenta:</td>
             </tr>
             <tr>
                 <td class="auto-style5">Método de Pago</td>
@@ -105,7 +113,7 @@
             <tr>
                 <td class="auto-style5">Dirección de Entrega</td>
                 <td>
-                    <asp:TextBox ID="TextBox1" runat="server" Width="242px"></asp:TextBox>
+                    <asp:TextBox ID="direccionC" runat="server" Width="242px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -130,45 +138,45 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Detalles de la Compra</td>
         </tr>
         <tr>
-            <td class="auto-style10">Nombre del Cliente:</td>
+            <td class="auto-style13">Nombre del Cliente:</td>
             <td>
-                <asp:TextBox ID="TextBox2" runat="server" Width="208px"></asp:TextBox>
+                <asp:TextBox ID="nombreC" runat="server" Width="205px" ReadOnly="True"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style10">Nombre de Usuario:</td>
+            <td class="auto-style13">Nombre de Usuario:</td>
             <td>
-                <asp:TextBox ID="TextBox3" runat="server" Width="207px"></asp:TextBox>
+                <asp:TextBox ID="nombreU" runat="server" Width="205px" ReadOnly="True"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style10">Cedula:</td>
+            <td class="auto-style13">Cédula:</td>
             <td>
-                <asp:TextBox ID="TextBox4" runat="server" Width="203px"></asp:TextBox>
+                <asp:TextBox ID="cedulaU" runat="server" Width="205px" ReadOnly="True"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style10">Cuenta:</td>
+            <td class="auto-style13">Cuenta:</td>
             <td>
-                <asp:TextBox ID="TextBox5" runat="server" Width="201px"></asp:TextBox>
+                <asp:TextBox ID="idCuenta" runat="server" Width="205px" ReadOnly="True"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style10">Metodo de Pago:</td>
+            <td class="auto-style13">Metodo de Pago:</td>
             <td>
-                <asp:TextBox ID="TextBox6" runat="server" Width="203px"></asp:TextBox>
+                <asp:TextBox ID="metodo" runat="server" Width="205px" ReadOnly="True"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style10">Tipo de Cliente:</td>
+            <td class="auto-style13">Tipo de Cliente:</td>
             <td>
-                <asp:TextBox ID="TextBox7" runat="server" Width="200px"></asp:TextBox>
+                <asp:TextBox ID="tipo" runat="server" Width="205px" ReadOnly="True"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style10">Dirección de Entrega:</td>
+            <td class="auto-style13">Dirección de Entrega:</td>
             <td>
-                <asp:TextBox ID="TextBox9" runat="server" Width="199px"></asp:TextBox>
+                <asp:TextBox ID="direccion" runat="server" Width="205px" ReadOnly="True"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -194,10 +202,44 @@
             </td>
         </tr>
         <tr>
-            <td class="auto-style7">
-                <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Eliminar Producto" Width="113px" />
+            <td class="auto-style13">
+                <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Eliminar Producto" Width="113px" ToolTip="Click para quitar un producto de la lista" />
             </td>
-            <td class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total: ₡ &nbsp;<asp:TextBox ID="total" runat="server" Height="20px" ReadOnly="True" ToolTip="Monto total de la compra" Width="115px">0</asp:TextBox>
+            <td class="auto-style7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total: $ &nbsp;<asp:TextBox ID="total" runat="server" Height="20px" ReadOnly="True" ToolTip="Monto total de la compra" Width="115px">0</asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style11" colspan="2">
+                Costo de Envio:&nbsp;
+                <asp:TextBox ID="TextBox10" runat="server" ReadOnly="True" Width="54px">$ 4 000</asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Impuesto de venta (13%):
+                <asp:TextBox ID="TextBox11" runat="server" ReadOnly="True">0</asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style11" colspan="2">
+                &nbsp;
+                Total a Pagar:
+                <asp:TextBox ID="TextBox12" runat="server" ReadOnly="True">0</asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style11" colspan="2">
+                <asp:CheckBox ID="CheckBox1" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox1_CheckedChanged"  Text="Enviar Factura por correo eléctronico" ToolTip="Seleccione si desea enviar la factura por correo electronico" />
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style12" colspan="2">
+                <asp:Label ID="lblcorreo" runat="server" Text="Ingrese el correo eléctronico:" Visible="False"></asp:Label>
+&nbsp;<asp:TextBox ID="correo" runat="server" Visible="False" Width="173px"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style12" colspan="2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:ImageButton ID="ImageButton2" runat="server" Height="49px" ImageUrl="~/icon_shopcart.png" ToolTip="Click para realizar la compra" Width="46px" OnClick="ImageButton2_Click" />
             </td>
         </tr>
     </table>
