@@ -105,7 +105,7 @@ namespace Proyecto_Final
                 conexion.Open();
                 //---------------se ingresa el string de la consulta sql--------\\
                 //--------------Crea el comando de sql que se ejecutara---------\\
-                SqlCommand command = new SqlCommand("CASO2.SP_INSERTAR_PRODUCTO", conexion);
+                SqlCommand command = new SqlCommand("CC.SP_INSERTAR_PRODUCTO", conexion);
                 command.CommandType = CommandType.StoredProcedure;
                 //---------------agrega los parametros de los campos de texto a la consulta para insertarlos a la bd----------------\\
                 command.Parameters.AddWithValue("@NOMBRE", nombre.Text);
@@ -124,9 +124,9 @@ namespace Proyecto_Final
                     conexion2.Open();
                     //---------------se ingresa el string de la consulta sql--------\\
                     //--------------Crea el comando de sql que se ejecutara---------\\
-                    string consulta_IDProducto = "select ID_Producto from caso2.producto where nombre = '"+nombre.Text+"' and codigo_producto = '"+codigo.Text+"' and  costo_unitario = '"+costo.Text+"'";
-                    string consulta_IDPlanta = "select id_planta from caso2.planta where nombre = '"+DropDownList2.SelectedValue+"'";
-                    SqlCommand command1 = new SqlCommand("CASO2.SP_INSERTAR_INVENTARIO", conexion2);
+                    string consulta_IDProducto = "select ID_Producto from CC.producto where nombre = '"+nombre.Text+"' and codigo_producto = '"+codigo.Text+"' and  costo_unitario = '"+costo.Text+"'";
+                    string consulta_IDPlanta = "select id_planta from CC.planta where nombre = '"+DropDownList2.SelectedValue+"'";
+                    SqlCommand command1 = new SqlCommand("CC.SP_INSERTAR_INVENTARIO", conexion2);
                     command1.CommandType = CommandType.StoredProcedure;
 
                     var cn_IDProducto = new SqlCommand(consulta_IDProducto, conexion2);
@@ -204,7 +204,7 @@ namespace Proyecto_Final
                 conexion1.Open();
                 //---------------se ingresa el string de la consulta sql--------\\
                 //--------------Crea el comando de sql que se ejecutara---------\\
-                SqlCommand command = new SqlCommand("CASO2.SP_INSERTAR_PLANTA", conexion1);
+                SqlCommand command = new SqlCommand("CC.SP_INSERTAR_PLANTA", conexion1);
                 command.CommandType = CommandType.StoredProcedure;
                 //---------------agrega los parametros de los campos de texto a la consulta para insertarlos a la bd----------------\\
                 command.Parameters.AddWithValue("@NOMBRE", nombrePlanta.Text);

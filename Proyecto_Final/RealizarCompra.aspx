@@ -28,8 +28,8 @@
             width: 49%;
             height: 514px;
             z-index:11;
-            left: 614px;
-            top: 74px;
+            left: 608px;
+            top: 46px;
         }
         .auto-style7 {
         }
@@ -72,7 +72,7 @@
                     <asp:DropDownList ID="nombreUsuario" runat="server" DataSourceID="SqlDataSource1" DataTextField="NOMBREUSUARIO" DataValueField="NOMBREUSUARIO" ToolTip="Seleccione el nombre de usuario" Height="16px" Width="176px" AutoPostBack="True" OnSelectedIndexChanged="nombreUsuario_SelectedIndexChanged">
                     <asp:ListItem>(----Seleccione un nombre de usuario----)</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="SELECT NOMBREUSUARIO FROM CASO2.CLIENTE"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="SELECT NOMBREUSUARIO FROM CC.CLIENTE"></asp:SqlDataSource>
                 </td>
             </tr>
             <tr>
@@ -185,7 +185,7 @@
         <tr>
             <td class="auto-style7" colspan="2">&nbsp;
                 <asp:ListBox ID="ListBox1" runat="server" Height="162px" ToolTip="Lista de pedido de productos" Width="176px">
-                    <asp:ListItem>------------Producto----------</asp:ListItem>
+                    <asp:ListItem>--------------Producto-------------</asp:ListItem>
                 </asp:ListBox>
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:ListBox ID="ListBox2" runat="server" Height="162px" Width="119px">
@@ -210,17 +210,25 @@
         </tr>
         <tr>
             <td class="auto-style11" colspan="2">
-                Costo de Envio:&nbsp;
-                <asp:TextBox ID="TextBox10" runat="server" ReadOnly="True" Width="54px">$ 4 000</asp:TextBox>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Impuesto de venta (13%):
-                <asp:TextBox ID="TextBox11" runat="server" ReadOnly="True">0</asp:TextBox>
+                Costo de Envio $:&nbsp;
+                <asp:TextBox ID="costoEnvio" runat="server" ReadOnly="True" Width="90px" ToolTip="costo de envio de la compra">0</asp:TextBox>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Impuesto de venta (13%):
+                <asp:TextBox ID="impuesto" runat="server" ReadOnly="True" ToolTip="impuesto aplicado a la compra" Width="115px">0</asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="auto-style11" colspan="2">
                 &nbsp;
-                Total a Pagar:
-                <asp:TextBox ID="TextBox12" runat="server" ReadOnly="True">0</asp:TextBox>
+                Total a Pagar&nbsp; $:&nbsp; <asp:TextBox ID="totalPagar" runat="server" ReadOnly="True" style="margin-top: 0px" ToolTip="Monto total de la compra" Width="90px">0</asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style11" colspan="2">
+                Transportista:
+                <asp:DropDownList ID="transportista" runat="server" DataSourceID="SqlDataSource3" DataTextField="carrier" DataValueField="carrier">
+                    <asp:ListItem>Seleccione un transportista</asp:ListItem>
+                </asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="select distinct carrier from cc.compra"></asp:SqlDataSource>
             </td>
         </tr>
         <tr>
@@ -261,7 +269,7 @@
             </tr>
             <tr>
                 <td class="auto-style9">
-                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="Select nombre from caso2.producto"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="Select nombre from CC.producto"></asp:SqlDataSource>
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Agregar" ToolTip="Click para agregar el producto" />

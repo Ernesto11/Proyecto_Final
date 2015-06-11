@@ -34,7 +34,7 @@ namespace Proyecto_Final
             System.Net.Mail.MailMessage mmsg = new System.Net.Mail.MailMessage();
 
             //Direccion de correo electronico a la que queremos enviar el mensaje
-            mmsg.To.Add("ernestobrenes96@hotmail.com");
+            mmsg.To.Add(correo);
 
             //Nota: La propiedad To es una colección que permite enviar el mensaje a más de un destinatario
 
@@ -64,7 +64,7 @@ namespace Proyecto_Final
                 new System.Net.NetworkCredential("acmetiendabd@gmail.com", "pepe1196");
 
             //Lo siguiente es obligatorio si enviamos el mensaje desde Gmail
-            
+
             cliente.Port = 587;
             cliente.EnableSsl = true;
 
@@ -98,12 +98,12 @@ namespace Proyecto_Final
                 mensajeError("seleccione un nombre de usuario para poder ingresar una cuenta");
                 return;
             }
-            if (DropDownList2.SelectedValue == "------Seleccione un tipo de cuenta--------") 
+            if (DropDownList2.SelectedValue == "------Seleccione un tipo de cuenta--------")
             {
                 mensajeError("Seleccione un tipo de cuenta");
                 return;
             }
-            if(DropDownList1.SelectedValue =="------Seleccione un método de pago------")
+            if (DropDownList1.SelectedValue == "------Seleccione un método de pago------")
             {
                 mensajeError("Seleccione un método de pago");
                 return;
@@ -118,7 +118,7 @@ namespace Proyecto_Final
             conexion.Open();
             //---------------se ingresa el string de la consulta sql--------\\
             //--------------Crea el comando de sql que se ejecutara---------\\
-            SqlCommand command = new SqlCommand("CASO2.SP_INSERTAR_CUENTA", conexion);
+            SqlCommand command = new SqlCommand("CC.SP_INSERTAR_CUENTA", conexion);
             command.CommandType = CommandType.StoredProcedure;
             //---------------agrega los parametros de los campos de texto a la consulta para insertarlos a la bd----------------\\
             command.Parameters.AddWithValue("@M_PAGO", DropDownList1.SelectedValue);
@@ -133,7 +133,7 @@ namespace Proyecto_Final
 
             source.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString;
             string nomUsuario = Convert.ToString(nombreUsuario.SelectedValue);
-            source.SelectCommand = "SELECT id_cuenta from caso2.cuenta where nombreusuario = '" + nomUsuario + "'";
+            source.SelectCommand = "SELECT id_cuenta from CC.cuenta where nombreusuario = '" + nomUsuario + "'";
 
             cuenta.Items.Clear();
 
@@ -163,24 +163,24 @@ namespace Proyecto_Final
 
         protected void nombreUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
-           source.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString;
+            source.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString;
             string nomUsuario = Convert.ToString(nombreUsuario.SelectedValue);
-            source.SelectCommand = "SELECT id_cuenta from caso2.cuenta where nombreusuario = '" +nomUsuario + "'";
+            source.SelectCommand = "SELECT id_cuenta from CC.cuenta where nombreusuario = '" + nomUsuario + "'";
 
             cuenta.Items.Clear();
-            
+
             cuenta.DataSourceID = "source";
             cuenta.DataTextField = "id_cuenta";
             cuenta.DataValueField = "id_cuenta";
             cuenta.DataBind();
-            cuenta.Items.Insert(0,  new ListItem("(----Seleccione una cuenta----)"));
+            cuenta.Items.Insert(0, new ListItem("(----Seleccione una cuenta----)"));
 
             SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString);
-            string strSQL = "select nombre as nombreCliente,cedula as cedulaCliente from caso2.cliente where nombreusuario = '" + nomUsuario+ "'";
+            string strSQL = "select nombre as nombreCliente,cedula as cedulaCliente from CC.cliente where nombreusuario = '" + nomUsuario + "'";
             var datos_Consulta = new SqlCommand(strSQL, conexion);
             conexion.Open();
             SqlDataReader reader = datos_Consulta.ExecuteReader();
-            
+
             reader.Read();
             string nombre = reader.GetString(reader.GetOrdinal("nombreCliente"));
             int cedula = reader.GetInt32(reader.GetOrdinal("cedulaCliente"));
@@ -200,7 +200,7 @@ namespace Proyecto_Final
                 return;
             }
             SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString);
-            string strSQL = "select metodo_pago as metodo, tipo_cuenta as tipo, direccionentrega as direccion from caso2.cuenta where id_cuenta ='" + cuenta.SelectedValue + "'";
+            string strSQL = "select metodo_pago as metodo, tipo_cuenta as tipo, direccionentrega as direccion from CC.cuenta where id_cuenta ='" + cuenta.SelectedValue + "'";
             var datos_Consulta = new SqlCommand(strSQL, conexion);
             conexion.Open();
             SqlDataReader reader = datos_Consulta.ExecuteReader();
@@ -249,18 +249,18 @@ namespace Proyecto_Final
             //---------------habre la conexion------------------------------\\
             conexion.Open();
             //---------------se ingresa el string de la consulta sql--------\\
-            string consulta_precio = "select precio_unitario from caso2.producto where nombre = '" + drowProducto.SelectedValue + "'";
-            string id_producto = "select id_producto from caso2.producto where nombre = '" + drowProducto.SelectedValue + "'";
-            string funcionVerificaInventario = "SELECT  CASO2.VERIFICAR_COMPRA_INVENTARIO(" + TextCantidad.Text + ",'"  + drowProducto.SelectedValue + "')";
+            string consulta_precio = "select precio_unitario from CC.producto where nombre = '" + drowProducto.SelectedValue + "'";
+            string id_producto = "select id_producto from CC.producto where nombre = '" + drowProducto.SelectedValue + "'";
+            string funcionVerificaInventario = "SELECT  CC.VERIFICAR_COMPRA_INVENTARIO(" + TextCantidad.Text + ",'" + drowProducto.SelectedValue + "')";
 
             var cn_Precio = new SqlCommand(consulta_precio, conexion);
             var cn_IDProducto = new SqlCommand(id_producto, conexion);
             var cn_verificaInventario = new SqlCommand(funcionVerificaInventario, conexion);
-            SqlCommand command = new SqlCommand("CASO2.SP_UPDATE_INVENTARIO", conexion);
+            SqlCommand command = new SqlCommand("CC.SP_UPDATE_INVENTARIO", conexion);
             command.CommandType = CommandType.StoredProcedure;
             //---------------agrega los parametros de los campos de texto a la consulta para insertarlos a la bd----------------\\
 
-            
+
             var precio = cn_Precio.ExecuteScalar();
             cn_verificaInventario.ExecuteScalar();
             var res = cn_verificaInventario.ExecuteScalar();
@@ -273,10 +273,10 @@ namespace Proyecto_Final
                 conexion.Close();
                 return;
             }
-            string cn_cantidad = "select cantidad from caso2.inventario where id_producto = '" +idProducto+ "'";
-            SqlCommand cmmCantidad = new SqlCommand(cn_cantidad,conexion);
+            string cn_cantidad = "select cantidad from CC.inventario where id_producto = '" + idProducto + "'";
+            SqlCommand cmmCantidad = new SqlCommand(cn_cantidad, conexion);
             var cantidad = cmmCantidad.ExecuteScalar();
-            int cantidadNueva = Int32.Parse(cantidad.ToString())-Int32.Parse(TextCantidad.Text);
+            int cantidadNueva = Int32.Parse(cantidad.ToString()) - Int32.Parse(TextCantidad.Text);
             command.Parameters.AddWithValue("@ID_Producto", idProducto);
             command.Parameters.AddWithValue("@CANTIDAD", cantidadNueva);
             command.ExecuteNonQuery();
@@ -285,19 +285,24 @@ namespace Proyecto_Final
             ListBox2.Items.Add("$ " + precio.ToString());
             ListBox3.Items.Add(TextCantidad.Text);
             int subTotal = Int32.Parse(TextCantidad.Text) * Int32.Parse(precio.ToString());
-            ListBox4.Items.Add("$ "+subTotal);
-            total.Text = (Int32.Parse(total.Text.ToString())+subTotal).ToString();
+            ListBox4.Items.Add("$ " + subTotal);
+            total.Text = (Int32.Parse(total.Text.ToString()) + subTotal).ToString();
             TextCantidad.Text = "";
 
+            float p = 2;
+            float i = 13;
+            float t = 100;
 
 
-
+            costoEnvio.Text = (Int32.Parse(total.Text.ToString()) * (p / t)).ToString();
+            impuesto.Text = (Int32.Parse(total.Text.ToString()) * (i / t)).ToString();
+            totalPagar.Text = (float.Parse(costoEnvio.Text.ToString()) + float.Parse(impuesto.Text.ToString()) + Int32.Parse(total.Text.ToString())).ToString();
         }
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-         //   try
-         //   {
+            try
+            {
                 if (ListBox1.SelectedIndex == 0)
                 {
                     mensajeError("Elemento invalido");
@@ -306,18 +311,18 @@ namespace Proyecto_Final
 
                 SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString);
                 conexion.Open();
-                string id_producto = "select id_producto from caso2.producto where nombre = '" + ListBox1.Items[ListBox1.SelectedIndex].ToString()+"'";
+                string id_producto = "select id_producto from CC.producto where nombre = '" + ListBox1.Items[ListBox1.SelectedIndex].ToString() + "'";
                 var cn_IDProducto = new SqlCommand(id_producto, conexion);
                 var idProducto = cn_IDProducto.ExecuteScalar();
 
-                string cn_cantidad = "select cantidad from caso2.inventario where id_producto = '" +idProducto+ "'";
+                string cn_cantidad = "select cantidad from CC.inventario where id_producto = '" + idProducto + "'";
                 var cmm_cantidad = new SqlCommand(cn_cantidad, conexion);
                 var cantidadInventario = cmm_cantidad.ExecuteScalar();
                 string cantidad = ListBox3.Items[ListBox1.SelectedIndex].ToString();
-                int cantidadNueva = Int32.Parse(cantidadInventario.ToString())+Int32.Parse(cantidad);
+                int cantidadNueva = Int32.Parse(cantidadInventario.ToString()) + Int32.Parse(cantidad);
                 //---------------se ingresa el string de la consulta sql--------\\
                 //--------------Crea el comando de sql que se ejecutara---------\\
-                SqlCommand command = new SqlCommand("CASO2.SP_UPDATE_INVENTARIO", conexion);
+                SqlCommand command = new SqlCommand("CC.SP_UPDATE_INVENTARIO", conexion);
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@ID_Producto", Int32.Parse(idProducto.ToString()));
@@ -332,11 +337,12 @@ namespace Proyecto_Final
                 ListBox4.Items.RemoveAt(ListBox1.SelectedIndex);
                 ListBox1.Items.RemoveAt(ListBox1.SelectedIndex);
 
-//            }
- //           catch {
-  //              mensajeError("Seleccione el producto que desea eliminar de la lista");
-   //         }
-            
+            }
+            catch
+            {
+                mensajeError("Seleccione el producto que desea eliminar de la lista");
+            }
+
         }
 
         protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -364,47 +370,160 @@ namespace Proyecto_Final
 
         protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
         {
+            if (nombreC.Text == "" || nombreU.Text == "" || cedulaU.Text == "")
+            {
+                mensajeError("Debe seleccionar un nombre de usuario para poder realizar la compra");
+                return;
+            }
+            if (idCuenta.Text == "" || metodo.Text == "" || tipo.Text == "" || direccion.Text == "")
+            {
+                mensajeError("Debe seleccionar una cuenta para poder realizar la compra");
+                return;
+            }
+
+
             if (CheckBox1.Checked == true)
             {
                 bool verificarCorreo = ComprobarFormatoEmail(correo.Text);
-                if (verificarCorreo == false) 
+                if (verificarCorreo == false)
                 {
                     mensajeError("correo invalido");
+                    return;
                 }
                 else
                 {
-                    string nombreCliente = "<br>Nombre del Cliente: "+nombreC.Text  +"<br/>";
+                    string nombreCliente = "<br>Nombre del Cliente: " + nombreC.Text + "<br/>";
                     string nombreUsuario = "<br>Nombre de Usuario: " + nombreU.Text + "<br/>";
                     string cedula = "<br>Cédula: " + cedulaU.Text + "<br/>";
-                    string Cuenta ="<br>Cuenta #: " + idCuenta.Text + "<br/>";
+                    string Cuenta = "<br>Cuenta #: " + idCuenta.Text + "<br/>";
                     string Metodo = "<br>Metodo de Pago: " + metodo.Text + "<br/>";
                     string Tipo = "<br>Tipo de Cliente: " + tipo.Text + "<br/>";
-                    string Direccion ="<br>Dirección de Entrega: " + direccion.Text + "<br/>";
+                    string Direccion = "<br>Dirección de Entrega: " + direccion.Text + "<br/>";
                     string detalles = "<br><br/><br>" + "<<<<<<<<<<<<<<<<<<<<<<<   Detalles de la compra de productos  >>>>>>>>>>>>>>>>>>>>>>>>>" + "<br/>";
                     string encabezado = nombreCliente + nombreUsuario + cedula + Cuenta + Metodo + Tipo + Direccion + detalles;
                     string detallesProducto = "";
 
-                    int cont = 0; 
+                    int cont = 0;
                     foreach (object producto in ListBox1.Items)
                     {
-                        if(cont ==0)
+                        if (cont == 0)
                         {
-                            //Coma mangos mientras espera;;;; !!!! <<<<>>>>
+                            
                         }
                         else
                         {
-                            detallesProducto = detallesProducto + "<br>-----------Producto-----------<br/>" + "<br>"+producto.ToString()+"<br/>";
+                            detallesProducto = detallesProducto + "<br>-----------Producto-----------<br/>" + "<br>" + producto.ToString() + "<br/>";
                             detallesProducto = detallesProducto + "<br>" + "Precio: " + ListBox2.Items[cont].ToString() + "<br/>" + "<br>" + "Cantidad: " + ListBox3.Items[cont].ToString() + "<br/>" + "<br>" + "Subtotal: " + ListBox4.Items[cont].ToString() + "<br/>";
-                           
+
                         }
                         cont++;
                     }
-                    detallesProducto = detallesProducto + "<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<--------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><br/>";
+
+                    detallesProducto = detallesProducto + "<br>---------------------------------------------------------------------------------<br/>";
+                    detallesProducto = detallesProducto + "<br>Monto Total: $ " + total.Text + "<br/>";
+                    detallesProducto = detallesProducto + "<br>Costo de Envio: $ " + costoEnvio.Text + "<br/>";
+                    detallesProducto = detallesProducto + "<br>Impuesto de Vento: $ " + impuesto.Text + "<br/>";
+                    detallesProducto = detallesProducto + "<br>TOTAL A PAGAR: $ " + totalPagar.Text + "<br/>";
+                    detallesProducto = detallesProducto + "<br>Transportista: " + transportista.Text + "<br/>";
+                    detallesProducto = detallesProducto + "<br><br/>";
+                    detallesProducto = detallesProducto + "<br>      Gracias por realizar la compra, estamos para servirle<br/>";
+                    detallesProducto = detallesProducto + "<br><<<<<<<<<<<<<<<<<<<<<<<--------->>>>>>>>>>>>>>>>>>>>>>>>>><br/>";
 
                     EnviarCorreo(correo.Text, encabezado + detallesProducto);
                 }
             }
+            int desc = 0;
+            SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString);
+            SqlCommand command = new SqlCommand("CC.SP_INSERTAR_COMPRA", conexion);
+            command.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand procedure = new SqlCommand("CC.SP_INSERTAR_COMPRAXCLIENTE", conexion);
+            procedure.CommandType = CommandType.StoredProcedure;
+
+            conexion.Open();
+            int con = 0;
+            foreach (object producto in ListBox1.Items)
+            {
+                if (con == 0)
+                {
+                   
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@PRODUCTO", producto.ToString());
+                    command.Parameters.AddWithValue("@CANTIDAD", Int32.Parse(ListBox3.Items[con].ToString()));
+                    int precioU = Int32.Parse(ListBox2.Items[con].ToString().Substring(2, (ListBox2.Items[con].ToString().Length - 2)));
+                    int cantidad = Int32.Parse(ListBox3.Items[con].ToString());
+                    int precioTot = precioU * cantidad;
+
+                    command.Parameters.AddWithValue("@PRECIO", precioTot);
+                    command.Parameters.AddWithValue("@DESCUENTO", desc);
+                    float CEnvio = float.Parse(costoEnvio.Text);
+                    command.Parameters.AddWithValue("@ENVIO", CEnvio);
+                    command.Parameters.AddWithValue("@TRANSPORTISTA", transportista.SelectedValue.ToString());
+                    command.ExecuteNonQuery();
+                    command = new SqlCommand("CC.SP_INSERTAR_COMPRA", conexion);
+                    command.CommandType = CommandType.StoredProcedure;
+                    procedure.Parameters.AddWithValue("@NOMBREUSUARIO", nombreU.Text);
+                    procedure.ExecuteNonQuery();
+                    procedure = new SqlCommand("CC.SP_INSERTAR_COMPRAXCLIENTE", conexion);
+                    procedure.CommandType = CommandType.StoredProcedure;
+
+                }
+                con++;
+            }
+            conexion.Close();
+
+            SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLAzureConnection"].ConnectionString);
+
+            
+            SqlCommand cm = new SqlCommand("CC.SP_INSERTAR_CLIENTEXCUENTAXPRODUCTO", cn);
+            cn.Open();
+            cm.CommandType = CommandType.StoredProcedure;
+            int contador = 0;
+            foreach (object producto in ListBox1.Items)
+            {
+                if (contador == 0)
+                {
+                
+                }
+                else
+                {
+                    cm.Parameters.AddWithValue("@producto", producto.ToString());
+                    cm.Parameters.AddWithValue("@cuenta", idCuenta.Text.ToString());
+                    cm.Parameters.AddWithValue("@nombreusuario", nombreU.Text);
+                    cm.ExecuteNonQuery();
+                    cm = new SqlCommand("CC.SP_INSERTAR_CLIENTEXCUENTAXPRODUCTO", cn);
+                    cm.CommandType = CommandType.StoredProcedure;
+
+                }
+                contador++;
+            }
+            cn.Close();
+            mensajeError("Compra realizada exitosamente");
+            ListBox1.Items.Clear();
+            ListBox2.Items.Clear();
+            ListBox3.Items.Clear();
+            ListBox4.Items.Clear();
+            ListBox1.Items.Add("--------------Producto-------------");
+            ListBox2.Items.Add("----------Precio----------");
+            ListBox3.Items.Add("----------Cantidad----------");
+            ListBox4.Items.Add("--------SubTotal--------");
+            nombreC.Text = "";
+            nombreU.Text = "";
+            cedulaU.Text = "";
+            idCuenta.Text = "";
+            metodo.Text = "";
+            tipo.Text = "";
+            direccion.Text = "";
+            total.Text = "0";
+            costoEnvio.Text = "0";
+            impuesto.Text = "0";
+            totalPagar.Text = "0";
+            correo.Text = "";
+            
         }
+
 
 
     }

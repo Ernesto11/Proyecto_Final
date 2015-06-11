@@ -174,7 +174,7 @@
                         </tr>
                         <tr>
                             <td class="auto-style13">
-                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="SELECT NOMBRE FROM CASO2.PLANTA "></asp:SqlDataSource>
+                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SQLAzureConnection %>" SelectCommand="SELECT NOMBRE FROM CC.PLANTA "></asp:SqlDataSource>
                             </td>
                             <td>
 

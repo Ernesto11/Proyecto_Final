@@ -77,7 +77,7 @@ namespace Proyecto_Final
                 conexion.Open();
                 //---------------se ingresa el string de la consulta sql--------\\
                 //--------------Crea el comando de sql que se ejecutara---------\\
-                SqlCommand command = new SqlCommand("CASO2.SP_INSERTAR_CLIENTE", conexion);
+                SqlCommand command = new SqlCommand("CC.SP_INSERTAR_CLIENTE", conexion);
                 command.CommandType = CommandType.StoredProcedure;
                 //---------------agrega los parametros de los campos de texto a la consulta para insertarlos a la bd----------------\\
                 command.Parameters.AddWithValue("@NOMBRE", nombre.Text);
