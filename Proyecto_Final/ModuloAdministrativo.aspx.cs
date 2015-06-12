@@ -30,8 +30,6 @@ namespace Proyecto_Final
             string script = @"<script type='text/javascript'>alert('" + error + "');</script>";
 
             ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
-
-
         }
         //----------Boton que muestra el calendario---------------\\
         protected void ImageButton1_Click1(object sender, ImageClickEventArgs e)
@@ -153,7 +151,6 @@ namespace Proyecto_Final
             int mes = Convert.ToInt16(mesSelector.SelectedValue);
             Calendar.VisibleDate = new DateTime(año, mes, 1);
         }
-
 
 
     }

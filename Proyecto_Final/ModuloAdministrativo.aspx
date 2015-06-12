@@ -15,7 +15,6 @@
         }
 
         .auto-style2 {
-            width: 206px;
         }
     </style>
 </head>
@@ -69,13 +68,12 @@
                 <td class="auto-style2">Fecha de nacimiento:</td>
                 <td translate="yes">
                     <asp:TextBox ID="fecha" runat="server" ReadOnly="True"></asp:TextBox>
-                    &nbsp;&nbsp;
                     <asp:ImageButton ID="ImageButton1" runat="server" Height="36px" ImageUrl="~/Content/calendario_icono.png" Width="35px" OnClick="ImageButton1_Click1" ToolTip="Click para seleccionar una fecha" />
 
-                    <br />
-
-                    <br />
-                    <asp:Label ID="Año" runat="server" Text="Año:" Visible="False"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style2" colspan="2"><asp:Label ID="Año" runat="server" Text="Año:" Visible="False"></asp:Label>
                     <!-----------------------------DropDownList selector de año------------------------------------>
                     &nbsp;<asp:DropDownList ID="añoSelect" runat="server" Visible="False" AutoPostBack="True" OnSelectedIndexChanged="añoSelect_SelectedIndexChanged">
                         <asp:ListItem>1910</asp:ListItem>
@@ -185,8 +183,7 @@
                         <asp:ListItem>2014</asp:ListItem>
                         <asp:ListItem>2015</asp:ListItem>
                     </asp:DropDownList>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Label ID="Mes" runat="server" Text="Mes:" Visible="False"></asp:Label>
+                    &nbsp;&nbsp;<asp:Label ID="Mes" runat="server" Text="Mes:" Visible="False"></asp:Label>
                     <!-----------------------------DropDownList selector de mes------------------------------------>
                     &nbsp;<asp:DropDownList ID="mesSelector" runat="server" Visible="False" AutoPostBack="True" OnSelectedIndexChanged="mesSelector_SelectedIndexChanged">
                         <asp:ListItem Value="1">Enero</asp:ListItem>
@@ -204,8 +201,7 @@
                     </asp:DropDownList>
 
                     <br />
-                    <!-----------------------------------------------------------------Calendario para seleccion de fecha-------------->
-                    <asp:Calendar ID="Calendar" runat="server" BackColor="White" BorderColor="Black" Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="182px" NextPrevFormat="ShortMonth" Visible="False" Width="300px" OnSelectionChanged="Calendar_SelectionChanged" BorderStyle="Solid" CellSpacing="1">
+                    <asp:Calendar ID="Calendar" runat="server" BackColor="White"  Font-Names="Verdana" Font-Size="9pt" ForeColor="Black" Height="30px" NextPrevFormat="ShortMonth" Visible="False" Width="214px" OnSelectionChanged="Calendar_SelectionChanged" BorderStyle="Solid" CellSpacing="1" CellPadding="1">
 
 
                         <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt" />
